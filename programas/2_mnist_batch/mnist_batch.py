@@ -7,9 +7,9 @@ from torch.utils.data import DataLoader, Subset
 # PRimero hacer una barrido con un LR grande y luego ir ajustandolo, un ajuste grosero.
 # ====== Parameters ======
 TRAIN_SIZE = 10000   # Número de imágenes usadas para entrenamiento
-EPOCHS = 50          # Cantidad de épocas (veces que se recorre el dataset de entrenamiento)
+EPOCHS = 5         # Cantidad de épocas (veces que se recorre el dataset de entrenamiento)
 BATCH_SIZE = 32      # Tamaño del batch (número de imágenes procesadas juntas en cada paso)
-LR = 0.5             # Tasa de aprendizaje (learning rate) del optimizador
+LR = 0.01           # Tasa de aprendizaje (learning rate) del optimizador
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # ====== Data ======
