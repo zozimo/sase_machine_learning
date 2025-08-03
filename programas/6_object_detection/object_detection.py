@@ -3,7 +3,8 @@ import cv2
 
 model = YOLO('yolov8n.pt')  # Nano model for max speed
 
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("http://192.168.1.4:8080/video")
 
 while True:
     ret, frame = cap.read()

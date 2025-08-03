@@ -13,6 +13,7 @@ def loader(path):
     return image.copy()
 
 def files_inference(weights, data_folder, class_labels, device='cpu'):
+    # Con esto te doy la cara de la imagen y sus coordenadas
 	face_classifier = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 	classifier = EmotionNet(5)
 	with open(weights, "rb") as weightfile:
@@ -82,7 +83,8 @@ def camfeed_inference(weights, class_labels, device='cpu'):
 
 	flag = False
 	try:
-		cap = cv2.VideoCapture(0)
+		# cap = cv2.VideoCapture(0)
+		cap = cv2.VideoCapture("http://192.168.1.4:8080/video")
 
 		while True:
 			# Grab a single frame of video

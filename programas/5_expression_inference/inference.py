@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-
+# Este código clasifica emociones
 """
 Run face expression detection locally on your system in several modes:
 1. On a library of images.

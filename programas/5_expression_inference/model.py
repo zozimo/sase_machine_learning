@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-
+# Este ejemplo ya esta entrenado, los pesos estan cargados
 # EmotionNetBlock
 class InvertedBottleneck(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size, groups):
@@ -34,12 +34,12 @@ class EmotionNet(nn.Module):
             nn.ReflectionPad2d(1),
             nn.Conv2d(1, 24, 3, 2, bias=False), # output_size = 24x24
             nn.BatchNorm2d(24),
-            nn.LeakyReLU(0.2))
+            nn.LeakyReLU(0.2)) #activación
         self.layer2 = InvertedBottleneck(24, 40, 3, 4) # output_size = 12x12
         self.layer3 = InvertedBottleneck(40, 56, 3, 4) # output_size = 6x6
         self.layer4 = InvertedBottleneck(56, 72, 3, 4) # output_size = 6x6
         self.avgpool = nn.AvgPool2d(6, 1, 0) # output_size = 1x1
-        self.layer5 = nn.Linear(72, self.num_emotions)
+        self.layer5 = nn.Linear(72, self.num_emotions) # Red completamente conectada para clasificar
         self.pool = nn.MaxPool2d(3,2,1)
     
     def forward(self, x):

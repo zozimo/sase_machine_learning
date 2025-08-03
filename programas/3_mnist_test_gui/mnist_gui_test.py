@@ -12,9 +12,9 @@ import scipy.ndimage
 
 # ======== Hyperparameters ========
 TRAIN_SIZE = 10000
-EPOCHS = 10
+EPOCHS = 25
 BATCH_SIZE = 32
-LR = 0.01
+LR = 0.4
 device = torch.device('cpu')
 
 # ======== Define the MLP model ========
@@ -25,7 +25,10 @@ class SimpleMLP(nn.Module):
             nn.Flatten(),
             nn.Linear(28 * 28, 128),
             nn.ReLU(),
-            nn.Linear(128, 10)
+            nn.Linear(128, 10),
+            #agrego otra capa
+            nn.ReLU(),
+            nn.Linear(10,10)
         )
 
     def forward(self, x):

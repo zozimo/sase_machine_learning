@@ -27,15 +27,22 @@ class StudentNet(nn.Module):
     def __init__(self):
         super().__init__()
         self.net = nn.Sequential(
+            # convolución con  kernels distintos
+            # cuanto tengo batches el numero sera n en funcion de los batchess
+            
+            # podriamos probar cambiar el kernel_size o agregar otra etapa de convolucion
+            
             nn.Conv2d(1, 6, kernel_size=10),             # 28 - 10 + 1 = 19 → 6x19x19
             nn.Tanh(),
             nn.AvgPool2d(kernel_size=2, stride=2),       # → 6x9x9
-
+            # La cuenta me dice como ver la dimensionalidad que me queda de la imagen
+            # Si cambio el kernel size deberia hacer nuevamente las cuentas
             nn.Conv2d(6, 16, kernel_size=5),             # 9 - 5 + 1 = 5 → 16x5x5
             nn.Tanh(),
             nn.AvgPool2d(kernel_size=2, stride=2),       # → 16x2x2
-
+            # Hasta aca extraemos features
             nn.Flatten(),
+            # 16 imagenes de 2x2, me da 64 componetes
             nn.Linear(16 * 2 * 2, 120),                  # 16×2×2 = 64
             nn.Tanh(),
             nn.Linear(120, 84),
@@ -47,7 +54,9 @@ class StudentNet(nn.Module):
         return self.net(x)
 
 model = StudentNet().to(device)
+# Defino la perdida que usare las cross...
 criterion = nn.CrossEntropyLoss()
+# Optimizo con gradiente descendente
 optimizer = optim.SGD(model.parameters(), lr=LR)
 
 # ====== Training ======
@@ -77,7 +86,7 @@ total = 0
 with torch.no_grad():
     for images, labels in test_loader:
         images, labels = images.to(device), labels.to(device)
-        outputs = model(images)
+        outputs = model(images) # Lo paso por el modelo
         predicted = outputs.argmax(dim=1)
         correct += (predicted == labels).sum().item()
         total += labels.size(0)
